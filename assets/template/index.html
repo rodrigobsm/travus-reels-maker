@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "League Gothic"; src: url("assets/fonts/LeagueGothic.woff2") format("woff2"); font-weight: 400; }
+      @font-face { font-family: "Montserrat"; src: url("assets/fonts/Montserrat-900.woff2") format("woff2"); font-weight: 900; }
+      @font-face { font-family: "Montserrat"; src: url("assets/fonts/Montserrat-700.woff2") format("woff2"); font-weight: 700; }
+      @font-face { font-family: "JetBrains Mono"; src: url("assets/fonts/JetBrainsMono-700.woff2") format("woff2"); font-weight: 700; }
+      /* THEME (rewritten by scripts/new_project.py from reel.config.json -> theme/palette) */
+      :root {
+        --ground: #06080d;
+        --ink: #ffffff;
+        --alert: #ff2d3a;
+        --alert-text: #ff5661;
+        --accent: #ffd60a;
+        --cool: #5b7cff;
+        --ok: #1fd17a;
+        --card: rgba(10,13,20,0.82);
+        --card-ink: #ffffff;
+        --shade: 4, 6, 10;
+        --gold: var(--accent);
+        --font-display: "League Gothic", sans-serif;
+        --font-body: "Montserrat", sans-serif;
+        --font-mono: "JetBrains Mono", monospace;
+      }
+      /* END THEME */
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: var(--ground); }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: var(--ground); }
+      .vw { position: absolute; inset: 0; overflow: hidden; }
+      .vw video { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover; }
+      #aw { z-index: 1; }
+      .bw { z-index: 2; }
+      .scene { z-index: 3; }
+      #title { z-index: 5; }
+      #captions { z-index: 6; }
+    </style>
+  </head>
+  <body>
+    <!-- Replace __DUR__ with the video length in seconds (ffprobe) and __TITLE_DUR__ with how long the fixed title stays. -->
+    <div id="root" data-composition-id="main" data-start="0" data-duration="__DUR__" data-width="1080" data-height="1920">
+      <!-- A-ROLL (talking head): original speech with sound, already SDR (assets/bruto.mp4).
+           VOICEOVER-ONLY reels: delete this block and use
+           <audio id="voz" class="clip" src="assets/audio/voz.wav" data-start="0" data-duration="__DUR__" data-track-index="0" data-volume="1"></audio> -->
+      <div id="aw" class="vw">
+        <video id="aroll" class="clip" src="assets/bruto.mp4" playsinline data-has-audio="true" data-start="0" data-duration="__DUR__" data-track-index="0"></video>
+      </div>
+
+      <!-- BACKGROUND MUSIC (see references/audio.md). Remove if the brief says "no music". -->
+      <!-- <audio id="musica" class="clip" src="assets/music/musica.wav" data-timeline-role="music" data-start="0" data-duration="__DUR__" data-track-index="10" data-volume="0.2"></audio> -->
+
+      <!-- SOUND EFFECTS: one id per <audio>; whoosh track 6, impact track 7, pops alternate 8/9 -->
+      <!-- <audio id="sfx-whoosh-1" class="clip" src="assets/sfx/whoosh.mp3" data-start="6.36" data-duration="0.6" data-track-index="6" data-volume="0.32"></audio> -->
+
+      <!-- B-ROLL (muted; one .vw.bw wrapper per clip; starts and ends on a sentence cut) -->
+      <!-- <div id="bw-NAME" class="vw bw"><video id="b-NAME" class="clip" src="assets/broll/NAME.mp4" muted playsinline data-start="6.5" data-duration="3.2" data-track-index="1"></video></div> -->
+
+      <!-- SCENES (motion graphics written by scripts/build-scenes.py); same start/duration as the b-roll they cover -->
+      <div id="hook" class="scene" data-composition-id="hook" data-composition-src="compositions/hook.html" data-track-kind="graphics" data-start="0" data-duration="6.45" data-track-index="2" data-width="1080" data-height="1920"></div>
+      <!-- <div id="NAME" class="scene" data-composition-id="NAME" data-composition-src="compositions/NAME.html" data-track-kind="graphics" data-start="6.5" data-duration="3.2" data-track-index="2" data-width="1080" data-height="1920"></div> -->
+
+      <!-- FIXED TITLE on top (brief: titleBar = whole video | hook only | none). Leaves before the CTA scene. -->
+      <div id="title" data-composition-id="title" data-composition-src="compositions/title.html" data-track-kind="graphics" data-start="0" data-duration="__TITLE_DUR__" data-track-index="4" data-width="1080" data-height="1920"></div>
+
+      <!-- CAPTIONS (scripts/build-captions.cjs: word / phrase / karaoke; outline / pill) -->
+      <div id="captions" data-composition-id="captions" data-composition-src="compositions/captions.html" data-track-kind="captions" data-start="0" data-duration="__DUR__" data-track-index="5" data-width="1080" data-height="1920"></div>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const DUR = __DUR__;
+
+      // Punch-ins on the talking head: [time, start scale, end scale]. Hard zoom cut on emphasis
+      // sentences, back to 1.0 on the next one; slow drift inside each segment.
+      gsap.set("#aw", { transformOrigin: "50% 46%" });
+      const cuts = [
+        [0, 1.0, 1.04],
+        // [4.62, 1.12, 1.15],
+      ];
+      cuts.forEach((c, i) => {
+        const end = i < cuts.length - 1 ? cuts[i + 1][0] : DUR;
+        tl.fromTo("#aw", { scale: c[1] }, { scale: c[2], duration: end - c[0], ease: "none", immediateRender: false }, c[0]);
+      });
+
+      // Slow push-in on each b-roll: [wrapper, start, duration]
+      [
+        // ["#bw-NAME", 6.5, 3.2],
+      ].forEach((b) => {
+        tl.fromTo(b[0], { scale: 1.02 }, { scale: 1.12, duration: b[2], ease: "none", immediateRender: false }, b[1]);
+      });
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

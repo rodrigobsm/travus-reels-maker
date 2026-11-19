@@ -1,0 +1,16 @@
+{
+  "duration": 55.2,
+  "language": "pt",
+  "theme": "bold-dark",
+  "palette": {},
+  "keywords": ["grátis", "meta", "zero", "hacker", "preparado"],
+  "captions": {
+    "mode": "word",
+    "style": "outline",
+    "position": "low",
+    "uppercase": true,
+    "maxWords": 3,
+    "maxChars": 22,
+    "size": null
+  }
+}

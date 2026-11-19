@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "League Gothic";
+        src: url("assets/fonts/LeagueGothic.woff2") format("woff2");
+        font-weight: 400;
+      }
+      @font-face {
+        font-family: "Montserrat";
+        src: url("assets/fonts/Montserrat-900.woff2") format("woff2");
+        font-weight: 900;
+      }
+      @font-face {
+        font-family: "Montserrat";
+        src: url("assets/fonts/Montserrat-700.woff2") format("woff2");
+        font-weight: 700;
+      }
+      @font-face {
+        font-family: "JetBrains Mono";
+        src: url("assets/fonts/JetBrainsMono-700.woff2") format("woff2");
+        font-weight: 700;
+      }
+      :root {
+        --ground: #06080d;
+        --ink: #ffffff;
+        --alert: #ff2d3a;
+        --gold: #ffd60a;
+        --cool: #5b7cff;
+        --font-display: "League Gothic", sans-serif;
+        --font-body: "Montserrat", sans-serif;
+        --font-mono: "JetBrains Mono", monospace;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: var(--ground);
+      }
+      #root {
+        position: relative;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: var(--ground);
+      }
+      .vw {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+      }
+      .vw video {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 1920px;
+        object-fit: cover;
+      }
+      #aw {
+        z-index: 1;
+      }
+      .bw {
+        z-index: 2;
+      }
+      .scene {
+        z-index: 3;
+      }
+      #split-flap-board {
+        z-index: 4;
+      }
+      #title {
+        z-index: 5;
+      }
+      #captions {
+        z-index: 6;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="73.73"
+      data-width="1080"
+      data-height="1920"
+    >
+      <!-- A-ROLL: fala original, com som -->
+      <div id="aw" class="vw">
+        <video
+          id="aroll"
+          class="clip"
+          src="assets/bruto.mp4"
+          playsinline
+          data-has-audio="true"
+          data-start="0"
+          data-duration="73.73"
+          data-track-index="0"
+        ></video>
+      </div>
+
+      <!-- B-ROLL (mudo, corta por cima da fala) -->
+      <div id="bw-crypto" class="vw bw"><video id="b-crypto" class="clip" src="assets/broll/crypto.mp4" muted playsinline data-start="6.5" data-duration="3.2" data-track-index="1"></video></div>
+      <div id="bw-hacker" class="vw bw"><video id="b-hacker" class="clip" src="assets/broll/hacker.mp4" muted playsinline data-start="9.7" data-duration="3" data-track-index="1"></video></div>
+      <div id="bw-terminals" class="vw bw"><video id="b-terminals" class="clip" src="assets/broll/terminals.mp4" muted playsinline data-start="12.7" data-duration="2.6" data-track-index="1"></video></div>
+      <div id="bw-servers" class="vw bw"><video id="b-servers" class="clip" src="assets/broll/servers.mp4" muted playsinline data-start="15.3" data-duration="2.15" data-track-index="1"></video></div>
+      <div id="bw-planes" class="vw bw"><video id="b-planes" class="clip" src="assets/broll/planes.mp4" muted playsinline data-start="17.45" data-duration="2.95" data-track-index="1"></video></div>
+      <div id="bw-airport" class="vw bw"><video id="b-airport" class="clip" src="assets/broll/airport.mp4" muted playsinline data-start="20.4" data-duration="1.05" data-track-index="1"></video></div>
+      <div id="bw-datacenter" class="vw bw"><video id="b-datacenter" class="clip" src="assets/broll/datacenter.mp4" muted playsinline data-start="25.4" data-duration="3.2" data-track-index="1"></video></div>
+      <div id="bw-network" class="vw bw"><video id="b-network" class="clip" src="assets/broll/network.mp4" muted playsinline data-start="28.6" data-duration="3.95" data-track-index="1"></video></div>
+      <div id="bw-circuit" class="vw bw"><video id="b-circuit" class="clip" src="assets/broll/circuit.mp4" muted playsinline data-start="35.4" data-duration="6.1" data-playback-rate="0.8" data-track-index="1"></video></div>
+      <div id="bw-glitch" class="vw bw"><video id="b-glitch" class="clip" src="assets/broll/glitchhacker.mp4" muted playsinline data-start="47.2" data-duration="4.4" data-track-index="1"></video></div>
+      <div id="bw-dc2" class="vw bw"><video id="b-dc2" class="clip" src="assets/broll/datacenter2.mp4" muted playsinline data-start="58.2" data-duration="8.9" data-track-index="1"></video></div>
+
+      <!-- CENAS (motion graphics) -->
+      <div id="hook" class="scene" data-composition-id="hook" data-composition-src="compositions/hook.html" data-track-kind="graphics" data-start="0" data-duration="6.45" data-track-index="2" data-width="1080" data-height="1920"></div>
+      <div id="binance" class="scene" data-composition-id="binance" data-composition-src="compositions/binance.html" data-track-kind="graphics" data-start="6.5" data-duration="3.2" data-track-index="2" data-width="1080" data-height="1920"></div>
+      <div id="php" class="scene" data-composition-id="php" data-composition-src="compositions/php.html" data-track-kind="graphics" data-start="9.7" data-duration="5.6" data-track-index="2" data-width="1080" data-height="1920"></div>
+      <div id="msft" class="scene" data-composition-id="msft" data-composition-src="compositions/msft.html" data-track-kind="graphics" data-start="15.3" data-duration="2.15" data-track-index="2" data-width="1080" data-height="1920"></div>
+      <div id="faa" class="scene" data-composition-id="faa" data-composition-src="compositions/faa.html" data-track-kind="graphics" data-start="17.45" data-duration="4" data-track-index="2" data-width="1080" data-height="1920"></div>
+      <div id="split-flap-board" data-composition-id="split-flap-board" data-composition-src="compositions/split-flap-board.html" data-track-kind="graphics" data-variable-values='{"boardText":"VOOS PARADOS","flipDuration":0.055,"cellStagger":0.04,"cellCount":12}' data-start="18.25" data-duration="3.2" data-track-index="3" data-width="1080" data-height="1920"></div>
+      <div id="link" class="scene" data-composition-id="link" data-composition-src="compositions/link.html" data-track-kind="graphics" data-start="21.45" data-duration="3.95" data-track-index="2" data-width="1080" data-height="1920"></div>
+      <div id="dep" class="scene" data-composition-id="dep" data-composition-src="compositions/dep.html" data-track-kind="graphics" data-start="25.4" data-duration="3.2" data-track-index="2" data-width="1080" data-height="1920"></div>
+      <div id="ai" class="scene" data-composition-id="ai" data-composition-src="compositions/ai.html" data-track-kind="graphics" data-start="28.6" data-duration="3.95" data-track-index="2" data-width="1080" data-height="1920"></div>
+      <div id="toolkit" class="scene" data-composition-id="toolkit" data-composition-src="compositions/toolkit.html" data-track-kind="graphics" data-start="35.4" data-duration="6.1" data-track-index="2" data-width="1080" data-height="1920"></div>
+      <div id="hands" class="scene" data-composition-id="hands" data-composition-src="compositions/hands.html" data-track-kind="graphics" data-start="47.2" data-duration="4.4" data-track-index="2" data-width="1080" data-height="1920"></div>
+      <div id="check" class="scene" data-composition-id="check" data-composition-src="compositions/check.html" data-track-kind="graphics" data-start="58.2" data-duration="8.9" data-track-index="2" data-width="1080" data-height="1920"></div>
+      <div id="end" class="scene" data-composition-id="end" data-composition-src="compositions/end.html" data-track-kind="graphics" data-start="67.1" data-duration="6.63" data-track-index="2" data-width="1080" data-height="1920"></div>
+
+      <!-- TÍTULO fixo no topo -->
+      <div id="title" data-composition-id="title" data-composition-src="compositions/title.html" data-track-kind="graphics" data-start="0" data-duration="67" data-track-index="4" data-width="1080" data-height="1920"></div>
+
+      <!-- LEGENDAS, 1 palavra por vez -->
+      <div id="captions" data-composition-id="captions" data-composition-src="compositions/captions.html" data-track-kind="captions" data-start="0" data-duration="73.73" data-track-index="5" data-width="1080" data-height="1920"></div>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // Punch-ins na fala (corte seco de zoom + leve drift)
+      gsap.set("#aw", { transformOrigin: "50% 46%" });
+      const cuts = [
+        [0, 1.0, 1.04],
+        [4.62, 1.12, 1.15],
+        [21.45, 1.0, 1.04],
+        [32.55, 1.1, 1.13],
+        [41.5, 1.18, 1.22],
+        [43.41, 1.0, 1.05],
+        [51.6, 1.12, 1.16],
+        [55.22, 1.0, 1.05],
+        [67.1, 1.1, 1.14],
+        [70.24, 1.22, 1.26],
+        [71.36, 1.0, 1.04],
+      ];
+      cuts.forEach((c, i) => {
+        const end = i < cuts.length - 1 ? cuts[i + 1][0] : 73.73;
+        tl.fromTo("#aw", { scale: c[1] }, { scale: c[2], duration: end - c[0], ease: "none", immediateRender: false }, c[0]);
+      });
+
+      // Push-in lento em cada b-roll
+      [
+        ["#bw-crypto", 6.5, 3.2],
+        ["#bw-hacker", 9.7, 3],
+        ["#bw-terminals", 12.7, 2.6],
+        ["#bw-servers", 15.3, 2.15],
+        ["#bw-planes", 17.45, 2.95],
+        ["#bw-airport", 20.4, 1.05],
+        ["#bw-datacenter", 25.4, 3.2],
+        ["#bw-network", 28.6, 3.95],
+        ["#bw-circuit", 35.4, 6.1],
+        ["#bw-glitch", 47.2, 4.4],
+        ["#bw-dc2", 58.2, 8.9],
+      ].forEach((b) => {
+        tl.fromTo(b[0], { scale: 1.02 }, { scale: 1.12, duration: b[2], ease: "none", immediateRender: false }, b[1]);
+      });
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

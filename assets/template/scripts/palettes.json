@@ -1,0 +1,17 @@
+{
+  "bold-dark": {
+    "ground": "#06080d", "ink": "#ffffff", "alert": "#ff2d3a", "alertText": "#ff5661", "accent": "#ffd60a",
+    "cool": "#5b7cff", "ok": "#1fd17a", "card": "rgba(10,13,20,0.82)", "cardInk": "#ffffff",
+    "scrim": "4,6,10", "scrimAlpha": [0.82, 0.50, 0.80], "shadow": "0,0,0"
+  },
+  "clean-light": {
+    "ground": "#F7F3EA", "ink": "#15211B", "alert": "#D2442C", "alertText": "#D2442C", "accent": "#1F9D63",
+    "cool": "#2F6FDB", "ok": "#1F9D63", "card": "#ffffff", "cardInk": "#15211B",
+    "scrim": "247,243,234", "scrimAlpha": [0.80, 0.35, 0.78], "shadow": "21,33,27"
+  },
+  "neon-retro": {
+    "ground": "#0b0420", "ink": "#ffffff", "alert": "#ff2e88", "alertText": "#ff5aa5", "accent": "#2de2e6",
+    "cool": "#8b5cf6", "ok": "#f9c80e", "card": "rgba(20,8,48,0.82)", "cardInk": "#ffffff",
+    "scrim": "11,4,32", "scrimAlpha": [0.80, 0.45, 0.80], "shadow": "255,46,136"
+  }
+}

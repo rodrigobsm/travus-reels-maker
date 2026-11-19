@@ -1,0 +1,19 @@
+# secrets and local config never go to the repo
+*.env
+*.dpapi
+config.json
+!assets/template/**/*.json
+.travus-reels/
+
+# python / node
+__pycache__/
+*.pyc
+node_modules/
+
+# media produced while testing
+*.mp4
+*.mov
+*.wav
+*.mp3
+snaps/
+.hyperframes/

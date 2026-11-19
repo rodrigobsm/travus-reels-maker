@@ -1,0 +1,83 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+    }
+    /* Shade behind the title: uses --shade (dark themes: near black, light theme: cream) */
+    #title-shade {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1080px;
+      height: 560px;
+      background: linear-gradient(180deg, rgba(var(--shade), 0.86) 0%, rgba(var(--shade), 0.62) 55%, rgba(var(--shade), 0) 100%);
+    }
+    .title-row {
+      position: absolute;
+      left: 0;
+      width: 1080px;
+      text-align: center;
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    #title-l1 {
+      top: 186px;
+      font-size: 132px;
+      color: var(--ink);
+      letter-spacing: 0.015em;
+    }
+    #title-l1 b {
+      color: var(--alert-text);
+      font-weight: 400;
+    }
+    #title-l2a,
+    #title-l2b {
+      top: 316px;
+      font-size: 70px;
+      letter-spacing: 0.03em;
+    }
+    .title-tag {
+      display: inline-block;
+      padding: 8px 26px 4px;
+      background: var(--alert);
+      color: #fff;
+      border-radius: 6px;
+    }
+    #title-l2b .title-tag {
+      background: var(--card-ink);
+      color: var(--ground);
+    }
+  </style>
+  <div id="root" data-composition-id="title" data-width="1080" data-height="1920">
+    <div id="title-shade" data-layout-allow-occlusion></div>
+    <!-- Line 1: the promise in up to 4 words, with a number when there is one. Keep durations = __TITLE_DUR__. -->
+    <div id="title-l1" class="clip title-row" data-start="0" data-duration="40" data-track-index="0">
+      <span id="title-l1-in" style="display: inline-block"><b>4</b> BIG MISTAKES</span>
+    </div>
+    <!-- Line 2a: red tag during the hook; 2b: white tag when the topic turns. -->
+    <div id="title-l2a" class="clip title-row" data-start="0" data-duration="5.5" data-track-index="1">
+      <span id="title-l2a-in" class="title-tag">IN A FEW WEEKS</span>
+    </div>
+    <div id="title-l2b" class="clip title-row" data-start="5.5" data-duration="34.5" data-track-index="1">
+      <span id="title-l2b-in" class="title-tag">AND IT'S JUST THE START</span>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      // Frame 0 already shows the title (it doubles as the cover); it only settles.
+      tl.fromTo("#title-l1-in", { scale: 1.12 }, { scale: 1, duration: 0.45, ease: "expo.out" }, 0);
+      tl.fromTo("#title-l2a-in", { scale: 1.25, rotation: -2 }, { scale: 1, rotation: -2, duration: 0.5, ease: "back.out(2)" }, 0);
+      tl.to("#title-l2a-in", { scaleY: 0, duration: 0.12, ease: "power2.in" }, 5.38);
+      tl.fromTo("#title-l2b-in", { scaleY: 0, rotation: -2 }, { scaleY: 1, rotation: -2, duration: 0.3, ease: "back.out(3)" }, 5.5);
+      tl.to("#title-l2b-in", { scale: 1.08, duration: 0.12, ease: "power2.out", yoyo: true, repeat: 1 }, 5.84);
+      // Exit (title duration - 0.4)
+      tl.to(["#title-l1-in", "#title-l2b-in"], { y: -60, opacity: 0, duration: 0.3, ease: "power2.in" }, 39.6);
+      tl.to("#title-shade", { opacity: 0, duration: 0.3, ease: "none" }, 39.6);
+      window.__timelines["title"] = tl;
+    })();
+  </script>
+</template>

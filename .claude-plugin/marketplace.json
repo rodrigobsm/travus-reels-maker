@@ -1,0 +1,15 @@
+{
+  "name": "travus",
+  "owner": { "name": "rodrigobsm", "url": "https://github.com/rodrigobsm" },
+  "description": "Travus plugins for Claude Code: AI-assisted vertical video (reels) creation.",
+  "plugins": [
+    {
+      "name": "travus-reels-maker",
+      "source": "./",
+      "description": "Creates and edits professional vertical reels end to end with HyperFrames.",
+      "version": "1.0.0",
+      "category": "productivity",
+      "tags": ["video", "reels", "social-media"]
+    }
+  ]
+}

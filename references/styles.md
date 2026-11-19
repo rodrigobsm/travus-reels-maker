@@ -71,6 +71,10 @@ The fonts are bundled in `assets/fonts` (SIL OFL) and declared with `@font-face`
 - A terminal typing a list; A vs B contrast in two colors; a checklist with animated checks.
 - Comparison in 3 cards with a price and the winner highlighted; a race with bars and logos.
 - A phone closing an app + a "WORKING…" panel; a grid of people lighting up.
+- **Split screen (talking head):** b-roll on the top part, the speaker still talking below, with a gradient between them instead of a full-screen cut.
+  - **B-roll:** a `.sw` wrapper at the top (height 880–1000 px) with `mask-image: linear-gradient(180deg, #000 0%, #000 74%, transparent 100%)`. Crop the clip to 1080×height and give it a slow push-in.
+  - **Speaker:** move the a-roll down with `tl.set("#aw", { y: off }, start)` and back to `y: 0` at the end, using hard cuts. Choose `off` so the face lands between the gradient and the captions (face center ≈ y 1100–1180, chin above y 1330).
+  - **Overlays:** move the scene's pills and checklists onto the b-roll area (y 370–800) so they never cover the face.
 - **Source screenshot (credibility):** a real screenshot of the study or news page inside a white card with a fake browser bar showing the real URL.
   - Keep the site's logo/header in the crop (e.g. NIH + PubMed Central) and stack it over the title/citation crop (`ffmpeg ... vstack`).
   - Animate a highlighter (`scaleX` 0→1) over the title on the word that names the source.
@@ -88,6 +92,24 @@ Search the registry first (`npx hyperframes catalog`) for anything new (charts, 
 - **B-roll:** a slow push-in 1.02 → 1.12/1.14.
 - **Pattern interrupt** (a "but here's the thing" moment): a quick flash or whip (white 2-frame flash or `x` shake), an SFX impact, a hard zoom, and a color flip of the caption.
 - **Freeze-frame callback:** extract the frame (`ffmpeg -ss <t> -frames:v 1`), show it with a slow push-in, a thin accent frame and a tag.
+
+## B-roll layout: full screen × split screen
+
+With a talking head, b-roll can take the whole screen or share it with the speaker (b-roll on top, gradient, speaker below; pattern under "Typical scenes"). With brief `brollLayout: mix` (default), **alternate the two**. Using only one layout makes the reel tiring.
+
+| Use **split screen** when… | Use **full screen** when… |
+| --- | --- |
+| the speaker's expression carries the line: opinion, emotion, a question to the viewer, "you" sentences (symptoms, pains, "if you are…") | the image must dominate: product hero, data and comparison cards, a study or headline screenshot, a demonstration |
+| the b-roll illustrates *while* he talks (examples, lists, checklists of symptoms) | a short punchy cut (1.5–4 s) on an impact word or a transition between topics |
+| the clip is long (4–10 s), so the viewer doesn't lose the face for too long | the clip is short, low resolution or has text that would be cut |
+
+Rules:
+- Never more than **two b-rolls in a row with the same layout**. When planning, mark each b-roll `F` (full) or `S` (split) on the beat list and check the sequence (e.g. `F S F F S F S`).
+- Aim for roughly **40–60% split** among the b-rolls of a talking-head reel.
+- Start the reel full screen or on the face; a split in the hook works when the hook is about something visual ("look at this belly…").
+- The **CTA and the product hero stay full screen** (or face-only); don't split them.
+- Every split needs a frame check: the face must sit below the gradient and the chin above the captions. If the framing doesn't allow it, use full screen.
+- `brollLayout: full` = only full screen (classic); `split` = only split screen (use sparingly, e.g. interviews or podcasts).
 
 ## B-roll
 

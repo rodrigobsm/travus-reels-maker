@@ -78,6 +78,8 @@ Note: "Other" is always available for free text (e.g. "neon pink and cyan", "exa
 ]
 ```
 
+**B-roll layout** is not asked by default (it uses `brollLayout` from the config, `mix`). If the user mentions it ("only full screen", "more split screen"), set `brollLayout` to `full`, `split` or `mix` in `brief.json`.
+
 ## Round 3: finishing (only with "Yes, everything")
 
 ```json
@@ -136,6 +138,7 @@ Write the answers here, then run `new_project.py --brief brief.json`. Missing ke
   "jumpCuts": "aggressive",
   "punchIns": true,
   "broll": "official",
+  "brollLayout": "mix",
   "logos": true,
   "music": {"enabled": true, "style": "synthwave", "volume": 0.18},
   "sfx": "subtle",

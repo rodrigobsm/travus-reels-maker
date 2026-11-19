@@ -43,6 +43,7 @@ DEFAULTS = {
         "jumpCuts": "aggressive",        # aggressive | light | none
         "punchIns": True,
         "broll": "stock",                # stock | official | motion-only | none
+        "brollLayout": "mix",            # mix (alternate full screen and split screen) | full | split
         "logos": True,
         "music": {"enabled": True, "style": "tech", "volume": 0.2},   # tech | corporate | lofi | cinematic | synthwave | upbeat
         "sfx": "subtle",                 # subtle | punchy | none

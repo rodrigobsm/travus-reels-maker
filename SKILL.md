@@ -72,6 +72,7 @@ This creates `<projects>/<Name>/` with `reels-project/` (HyperFrames + template,
 4. **Media.**
    - **Logos:** `npx hyperframes media-use resolve --type logo --intent "<company>" --project .`, or `--from <url>`. Check that you got the product's logo and not the parent company's, and never redraw a logo.
    - **B-roll:** see `references/styles.md` → "B-roll" (stock sources, official material, licensing).
+   - **B-roll layout** (talking head and hybrid, brief `brollLayout`, default `mix`): **alternate full-screen and split-screen b-roll** so the reel doesn't get repetitive. See `references/styles.md` → "B-roll layout: full screen × split screen" for when to use each one.
    - **Music and SFX:** see `references/audio.md`.
 5. **Captions.** Put `duration` and `keywords` (the impact words, one per sentence) into `reel.config.json` and run `node scripts/build-captions.cjs`. The modes and styles come from the brief. In Portuguese, check the "isolated E" count the script reports.
 6. **Title and hook.**
@@ -113,6 +114,7 @@ This creates `<projects>/<Name>/` with `reels-project/` (HyperFrames + template,
   - After cutting, transcribe the cut video again so the caption timings are exact.
 - **Punch-ins** (brief `punchIns`): a hard zoom cut (1.0 → 1.10–1.22) on emphasis sentences and on every jump cut, a slow drift inside each segment, and back to 1.0 on the next sentence. Use the `cuts` list in `index.html`.
 - **Over the face** (no b-roll): only small elements on the left side or at the top. Never put a card over the face.
+- **B-roll layout:** with `brollLayout: mix`, plan every b-roll as either full screen or split screen and alternate between them. Two in a row of the same layout is the maximum. A split screen keeps the speaker talking below (see `references/styles.md`).
 
 ## 5. Voiceover-only specifics (no face)
 

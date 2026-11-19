@@ -90,6 +90,15 @@ Mapping:
 - `defaults.cta.type`: question | comment-keyword | follow | link-in-bio.
 - `rules.approveScript` and `rules.approveNarration` (true/false).
 
+## Optional: Gemini (AI avatar shots, AI covers and b-roll)
+
+Ask in one line: "Do you have a Google Gemini API key (aistudio.google.com/apikey) and an AI avatar? With them I can generate your talking-head shots from a script and make the covers with Gemini." If yes:
+1. They store the key: `python <skill>/scripts/secrets_store.py set gemini_api_key` (the input is hidden).
+2. Avatar name: `config.py set avatar.name "<name>"`. It is only a label, because the API cannot load app avatars by name.
+3. Reference images: 1–3 images of the avatar in `~/.travus-reels/avatar/`. Extract frames from a video of the avatar they like, or ask them to send images.
+4. A one-line look description in `avatar.description`, and the voice mode in `avatar.voice` (fish | model).
+5. Run `python <skill>/scripts/gemini.py check`.
+
 ## Secrets: never in plain text
 
 For each provider chosen, tell the user to run this **in their own terminal** and paste the key when it waits for input:
@@ -98,6 +107,7 @@ For each provider chosen, tell the user to run this **in their own terminal** an
 python <skill>/scripts/secrets_store.py set fish_api_key        # Fish Audio: https://fish.audio/app/api-keys
 python <skill>/scripts/secrets_store.py set elevenlabs_api_key  # ElevenLabs: profile → API keys
 python <skill>/scripts/secrets_store.py set ghl_token           # GHL: Private Integration token with social-planner scopes
+python <skill>/scripts/secrets_store.py set gemini_api_key      # Google Gemini: aistudio.google.com/apikey
 ```
 
 The key goes to the OS keychain (`keyring`), or to a DPAPI-encrypted file on Windows. If the user pastes a key in the chat anyway, store it the same way (pipe it on stdin), never echo it back, and suggest rotating it later because the chat now contains it.

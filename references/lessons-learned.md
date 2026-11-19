@@ -26,6 +26,11 @@ Add a row whenever you solve a new one.
 | A card class without `font-size` rendered tiny (16 px) | a new card class had no default size | always set `font-size` on new classes (`.P-card` has 58 px) |
 | `reel_scenes.py`: `ModuleNotFoundError: brotli` | reading woff2 | `python -m pip install fonttools brotli` |
 
+| Empty bordered boxes stay on screen after a card video ends | a styled wrapper (border/shadow) around a `clip` video is not itself a clip, so it persists | give the wrapper `opacity: 0` in CSS, fade it in on the timeline, and `tl.set(opacity: 0)` at its end (or make the wrapper the clip) |
+| Black bars inside a vertical crop of a trailer | cinematic trailers are letterboxed 2.39:1 inside 16:9 | crop inside the bars first (e.g. `crop=452:800:x:140` for 1080p), then scale |
+| A card with a video on top looks misaligned | the scene card tilts in 3D (rotateY) but the index-level video does not | don't tilt cards that carry an index video: use a 2D wipe/scale entrance |
+| `media-use resolve --type sfx` printed a path but the file is not in `assets/` | it saves into the project's hidden `.media/audio/sfx/` | copy from `.media/audio/sfx/sfx_00N.mp3` into `assets/sfx/` with a clear name |
+
 ## Shell, ffmpeg and files
 
 | Symptom | Cause | Fix |
@@ -43,6 +48,7 @@ Add a row whenever you solve a new one.
 | A "stumble" cut removed a word that was really said | whisper duplicated a phrase in the transcript of the raw video | before cutting a repetition, transcribe only the ±3 s window of the original; after cutting, transcribe the whole cut video again |
 | Jump cuts found from word gaps barely cut anything | whisper stretches word ends into pauses | detect pauses with `silencedetect` (−32 dB, 0.38 s) and leave 0.1 s of breath |
 | Voiceover folder with two files of the same block | repeated takes | transcribe everything, use one take, say which |
+| Fish Audio drama-3 narration is too slow for a reel | drama-3 delivers with long, theatrical pauses | write fewer `[pause]`/`[slow]` directions, set `speed` ~1.25, and if still slow speed it up in the edit with `atempo` (1.2–1.3×) instead of paying to regenerate |
 | Narration "sounds read" | one tone tag per segment | one descriptive tone tag per **sentence** + spoken connectors (see scriptwriting.md) |
 | All reels start the same way | habit opener ("So…", "Guys…") | `rules.bannedOpeners` + vary the hook structure |
 

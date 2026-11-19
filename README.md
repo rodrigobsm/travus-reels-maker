@@ -14,6 +14,7 @@ It is built on [HyperFrames](https://hyperframes.heygen.com) (HTML + GSAP render
   - a **topic**: research → hook-driven script → narration in **your cloned voice** (Fish Audio or ElevenLabs);
   - **hybrid**: an opening clip (e.g. an AI avatar) followed by narration.
 - **Animated captions:** word by word, short phrases or karaoke, with an outline or pill style and keyword highlights, placed inside the platform safe zones.
+- **5 edit styles** (classic, editorial canvas, product kinetic, terminal neon, cinematic 3D) and a **motion library** of ~70 moves mapped to ready HyperFrames components: odometers, charts, chat and phone mockups, clicking cursors, whip, iris and slash transitions, floating 3D cards, camera pans.
 - **3 looks + your brand:** bold-dark, clean-light, neon-retro, or your colors on a dark or light base.
 - **Fixed title and hook**, official logos, b-roll synced to each sentence, ready-made scene patterns (company cards, comparisons, checklists, sponsored product hero, CTA).
 - **Sound:** royalty-free background music (picked by measuring how much it competes with the voice), ducking, subtle SFX, and loudness at −14 LUFS.
@@ -104,6 +105,7 @@ Just ask Claude Code:
 | Fish Audio | cloned-voice narration (s2.1-pro, free-form emotion tags) | `fish_api_key` | `voice.voiceId` |
 | ElevenLabs | cloned-voice narration (eleven_v3 audio tags) | `elevenlabs_api_key` | `voice.voiceId` |
 | GoHighLevel Social Planner | scheduling IG, FB, TikTok, YouTube Shorts | `ghl_token` | `publish.ghl.locationId`, `publish.ghl.userId` |
+| Google Gemini API | AI avatar talking-head shots (Gemini Omni Flash), covers and b-roll images (Nano Banana) | `gemini_api_key` | `avatar.*`, `gemini.*` |
 
 Store secrets in your own terminal: `python scripts/secrets_store.py set fish_api_key`, then paste the key. To add another TTS or scheduler, add a provider to `scripts/tts.py` or a `scripts/publish_<name>.py`.
 
@@ -115,15 +117,18 @@ SKILL.md                     the workflow the agent follows
 references/
   setup.md                   first-run questions + config mapping
   video-brief.md             per-video questions + brief.json
+  edit-styles.md             5 complete edit recipes (look, layout, captions, moves, transitions)
+  motion-library.md          single moves -> registry component / recipe
   styles.md                  themes, captions, typography, scenes, b-roll
   audio.md                   voice normalization, music selection, ducking, SFX
   scriptwriting.md           research, proven hooks, voice-script tags
   publishing.md              post caption, AI/#ad disclosure, GHL scheduling
+  ai-video.md                AI avatar shots, AI b-roll and AI covers with the Gemini API
   creator.example.md         template for your private ~/.travus-reels/creator.md (personal rules)
   lessons-learned.md         pitfalls already solved (render, layout, whisper, GHL)
   examples/                  real scene scripts and index files (talking head, voiceover, light sponsored)
 scripts/
-  config.py  secrets_store.py  doctor.py  new_project.py  tts.py  publish_ghl.py
+  config.py  secrets_store.py  doctor.py  new_project.py  tts.py  publish_ghl.py  gemini.py
 assets/template/             HyperFrames project template (index, title, hook, captions builder,
                              scene library, palettes, OFL fonts)
 ```

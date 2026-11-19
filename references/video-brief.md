@@ -40,17 +40,23 @@ If it is unclear (e.g. a video **and** a script), ask one AskUserQuestion with t
  {"header": "Customize", "question": "Customize pace, b-roll, music and CTA too?", "multiSelect": false,
   "options": [
    {"label": "No, use my defaults (Recommended)", "description": "Start right away."},
-   {"label": "Yes: pace, b-roll, music, CTA", "description": "One more round of 4 questions."},
-   {"label": "Yes, everything", "description": "Two more rounds (adds title, caption style, sponsorship, narration tone)."}]}
+   {"label": "Yes: style, pace, b-roll, music", "description": "One more round of 4 questions (edit style, pace, b-roll, music)."},
+   {"label": "Yes, everything", "description": "Two more rounds (adds title, caption style, CTA, narration tone)."}]}
 ]
 ```
 
 Note: "Other" is always available for free text (e.g. "neon pink and cyan", "exactly 40 s").
 
-## Round 2: pace and content (only when asked to customize)
+## Round 2: style, pace and content (only when asked to customize)
 
 ```json
 [
+ {"header": "Edit style", "question": "Which edit style (references/edit-styles.md)?", "multiSelect": false,
+  "options": [
+   {"label": "Auto (Recommended)", "description": "Picked from the topic and the material."},
+   {"label": "Classic", "description": "Face + bold captions + title bar + b-roll cards."},
+   {"label": "Editorial canvas", "description": "Cream infographic canvas on top, face below, camera travels along a storyboard."},
+   {"label": "Product kinetic", "description": "Apple-like type, UI mockups, 3D icons, color flips. (Other: terminal-neon, cinematic-3d)"}]},
  {"header": "Pace", "question": "Editing pace?", "multiSelect": false,
   "options": [
    {"label": "Dynamic (Recommended)", "description": "New visual every 2-4 s, aggressive jump cuts, punch-ins."},
@@ -69,12 +75,6 @@ Note: "Other" is always available for free text (e.g. "neon pink and cyan", "exa
    {"label": "Cinematic / synthwave", "description": "Epic or 80s retro (games, pop culture)."},
    {"label": "Lo-fi / corporate", "description": "Soft, for advice and education."},
    {"label": "No music", "description": "Only voice and subtle SFX."}]},
- {"header": "CTA", "question": "How should the video end?", "multiSelect": false,
-  "options": [
-   {"label": "My default (yes/no question)", "description": "Keep the setup choice."},
-   {"label": "Comment a keyword", "description": "\"Comment WORD and I'll DM you…\" (I'll ask for the word)."},
-   {"label": "Follow for more", "description": "Follow @handle."},
-   {"label": "Link in bio", "description": "Points to the bio."}]}
 ]
 ```
 
@@ -95,10 +95,12 @@ Note: "Other" is always available for free text (e.g. "neon pink and cyan", "exa
    {"label": "Pill, low", "description": "Text on a white rounded card; keyword on an accent pill."},
    {"label": "Outline, middle", "description": "Center of the screen; more presence."},
    {"label": "Pill, middle", "description": "Card captions in the center."}]},
- {"header": "Sponsored", "question": "Is this a paid partnership?", "multiSelect": false,
+ {"header": "CTA", "question": "How should the video end?", "multiSelect": false,
   "options": [
-   {"label": "No", "description": "Regular content."},
-   {"label": "Yes, sponsored", "description": "Discreet #ad tag, brand logo, product hero scene, sales-oriented CTA (I'll ask for brand, product and link)."}]},
+   {"label": "My default (yes/no question)", "description": "Keep the setup choice."},
+   {"label": "Comment a keyword", "description": "\"Comment WORD and I'll DM you…\" (I'll ask for the word)."},
+   {"label": "Follow for more", "description": "Follow @handle."},
+   {"label": "Link in bio", "description": "Points to the bio."}]},
  {"header": "Tone", "question": "Narration tone (cloned voice)?", "multiSelect": false,
   "options": [
    {"label": "Friendly chat (Recommended)", "description": "Animated, like talking to a friend; never sounds read."},
@@ -112,6 +114,8 @@ Ask the **Tone** question only for `voiceover`, `topic` or `hybrid` with TTS. Fo
 - MP4 + phone copy + caption (Recommended)
 - + designed cover
 - MP4 only
+
+**Sponsorship** is no longer a multiple-choice question. Ask it as a follow-up only when the request or the material suggests a paid partnership (a brand, a product, "publi", "#ad"). Then set `"sponsored"` in `brief.json`.
 
 ## Follow-ups (free text, only when needed)
 
@@ -127,6 +131,7 @@ Write the answers here, then run `new_project.py --brief brief.json`. Missing ke
 ```json
 {
   "source": "hybrid",
+  "editStyle": "cinematic-3d",
   "language": "pt-BR",
   "theme": "neon-retro",
   "palette": {},

@@ -14,6 +14,7 @@ Uma **skill do Claude Code** que transforma um vídeo de fala, uma locução, um
   - um **tema**: pesquisa → roteiro com gancho comprovado → narração com a **sua voz clonada** (Fish Audio ou ElevenLabs);
   - **híbrido**: um clipe de abertura (ex.: avatar de IA) seguido de narração.
 - **Legendas animadas:** palavra por palavra, frases curtas ou karaokê, com contorno ou pílula e palavras-chave em destaque, dentro das zonas seguras das plataformas.
+- **5 estilos de edição** (clássico, canvas editorial, produto kinetic, terminal neon, cinematográfico 3D) e uma **biblioteca de motion** com ~70 recursos ligados a componentes prontos do HyperFrames: odômetros, gráficos, mockups de chat e celular, cursor clicando, transições whip, iris e corte diagonal, cards 3D flutuando, câmera percorrendo uma tela.
 - **3 visuais + a sua marca:** bold-dark, clean-light, neon-retro, ou as suas cores sobre base escura ou clara.
 - **Título fixo e gancho**, logos oficiais, b-roll sincronizado com cada frase e cenas prontas (card de empresa, comparação, checklist, produto em publi, CTA).
 - **Som:** música livre de direitos (escolhida medindo o quanto ela compete com a voz), ducking, efeitos discretos e loudness em −14 LUFS.
@@ -104,6 +105,7 @@ Rode `python <pasta da skill>/scripts/doctor.py`. No Claude Code, as skills do H
 | Fish Audio | narração com voz clonada (s2.1-pro, tags de emoção livres) | `fish_api_key` | `voice.voiceId` |
 | ElevenLabs | narração com voz clonada (audio tags do eleven_v3) | `elevenlabs_api_key` | `voice.voiceId` |
 | GoHighLevel Social Planner | agendar IG, FB, TikTok e YouTube Shorts | `ghl_token` | `publish.ghl.locationId`, `publish.ghl.userId` |
+| Google Gemini API | tomadas do seu avatar de IA (Gemini Omni Flash), capas e imagens de b-roll (Nano Banana) | `gemini_api_key` | `avatar.*`, `gemini.*` |
 
 Guarde as chaves no seu próprio terminal: `python scripts/secrets_store.py set fish_api_key` e cole a chave. Para outro TTS ou agendador, acrescente um provedor em `scripts/tts.py` ou um `scripts/publish_<nome>.py`.
 

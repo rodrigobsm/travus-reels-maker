@@ -79,7 +79,9 @@ This creates `<projects>/<Name>/` with `reels-project/` (HyperFrames + template,
    - Edit `compositions/title.html`: up to 4 words that promise the content, with a number if there is one, plus a tag that changes when the topic turns.
    - Edit `compositions/hook.html`: logo chips, or replace it with a scene.
    - With `titleBar: hook`, set `__TITLE_DUR__` to the hook length. With `none`, the title was already removed from the index.
-7. **Scenes.** Write `scripts/build-scenes.py` with `from reel_scenes import *` and run it (needs `pip install fonttools brotli`).
+7. **Scenes.** Follow the brief's **edit style** (`references/edit-styles.md`: classic, editorial-canvas, product-kinetic, terminal-neon, cinematic-3d). Pick moves from **`references/motion-library.md`**, preferring ready registry components (`npx hyperframes add <name>`). Write the beat list with the chosen move per beat before building.
+
+   Write `scripts/build-scenes.py` with `from reel_scenes import *` and run it (needs `pip install fonttools brotli`).
    - Use the palette through `C["ink"]`, `C["accent"]`… so the scenes follow the theme.
    - Read an example first: `references/examples/build-scenes-talking-head.py`, `build-scenes-voiceover.py` or `build-scenes-light-sponsored.py`.
    - Register every scene, b-roll and audio in `index.html`, as in `references/examples/index-*.html`.
@@ -98,7 +100,7 @@ This creates `<projects>/<Name>/` with `reels-project/` (HyperFrames + template,
     ffmpeg -y -i <Name>-final.mp4 -c:v libx265 -preset medium -b:v 3200k -maxrate 4500k -bufsize 9000k -tag:v hvc1 -pix_fmt yuv420p -c:a aac -b:a 160k -movflags +faststart <Name>-final-phone.mp4
     ```
     For long videos, use `-b:v` = (MB limit × 8 ÷ duration) − 160 kbps, with a margin. Explain that both files are the same video.
-12. **Cover:** frame 0 already has the title. If the brief asks for a designed cover, make `cover.png` (1080×1920) with HyperFrames. Keep the main text inside the center 1080×1350 so it survives the 4:5 grid crop.
+12. **Cover:** if a Gemini key exists, **always** make the cover with the Gemini image model (`references/ai-video.md` → "Covers"): face from the video, headline in quotes, 4:5-safe layout, 2–3 variations, spelling checked. Without a key, frame 0 already has the title, or design `cover.png` (1080×1920) with HyperFrames. Either way, keep the main text inside the center 1080×1350 so it survives the 4:5 grid crop.
 13. **Post caption → publishing:** see `references/publishing.md`. **Always ask the date and time before scheduling.**
 
 ## 4. Talking head specifics
@@ -162,6 +164,16 @@ Used when the user brings an opening clip (a talking head or an AI avatar, e.g. 
    Listen to the seam in a 6 s excerpt rendered with ffmpeg and say in the report how it sounds.
 4. **Callbacks:** if the script refers back to the opening ("this video you just watched…"), go back to the clip footage. A freeze frame with a slow push-in and a highlight tag works well.
 5. **AI disclosure:** when the avatar or the voice is AI-generated, say so in the post caption and remind the user to switch on the platform's AI label (Instagram "AI info", TikTok "AI-generated content", YouTube "altered or synthetic content").
+
+## 7b. AI avatar shots and AI images (Gemini API)
+
+When the user has a Gemini key (`secrets_store.py check gemini_api_key`) and an avatar configured (`config.avatar`), the skill can **generate the talking-head shots itself** from a script, instead of waiting for a clip. It can also generate b-roll images or clips and the covers. Read **`references/ai-video.md`** first. In short:
+- The API has **no avatar-by-name**: the avatar is 1–3 reference images in `avatar.refsDir`.
+- Split the script into shots of ≤ 15 s and write each prompt with the template. Same character, setting and voice description in every shot; dialogue in quotes; "No background music. No sound effects. No on-screen text."
+- **Generate and show the first shot before generating the rest** (each second costs money).
+- Voice: `avatar.voice = fish` replaces the model's voice with the cloned voice (approximate lip-sync); `model` keeps it.
+- Never fake official footage of real products, games or people. AI b-roll is for generic, illustrative moments.
+- Disclose AI avatar, voice and footage in the post caption and with the platform label.
 
 ## 8. Safe zones (1080×1920)
 

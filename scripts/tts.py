@@ -6,12 +6,14 @@
   python tts.py generate voice_script.json OUT_DIR --only 03   # redo only the segment whose file starts with "03"
 
 voice_script.json:
-  {"speed": 1.08, "temperature": 0.85,
+  {"speed": 1.08, "temperature": 0.85, "model": "drama-3",
    "segments": [{"file": "01 Hook", "text": "[excited, talking to a friend] ..."}, ...]}
   ("velocidade"/"temperatura"/"trechos"/"arquivo"/"texto" are accepted too.)
 
 Providers
-- fish        Fish Audio, model s2.1-pro by default. Free-form tags in [brackets] at the start of each sentence.
+- fish        Fish Audio, model s2.1-pro by default; "model": "drama-3" in the script for the most expressive delivery
+              (free-text directions in [brackets] + scoped <emphasis>/<stress>/<slow>/<fast>/<soft>/<whisper>/<forceful>).
+              A misspelled model silently falls back to s2.1-pro.
               API credit is billed apart from the website plan: https://fish.audio/app/developers/billing
               HTTP 402 = no API credit.
 - elevenlabs  ElevenLabs, model eleven_v3 by default (supports [audio tags]). With any other model the
@@ -74,11 +76,11 @@ def fish_check():
     print("API credit:", c.get("credit"))
 
 
-def fish_tts(text, speed, temperature):
+def fish_tts(text, speed, temperature, model=None):
     body = {"text": text, "reference_id": voice_id(), "format": "mp3", "mp3_bitrate": 192, "sample_rate": 44100,
             "latency": "normal", "normalize": True, "temperature": temperature, "top_p": 0.7,
             "prosody": {"speed": speed, "volume": 0, "normalize_loudness": True}}
-    return http("POST", FISH + "/v1/tts", fish_headers(CFG.get("model") or "s2.1-pro"), body)
+    return http("POST", FISH + "/v1/tts", fish_headers(model or CFG.get("model") or "s2.1-pro"), body)
 
 
 # ---------------------------------------------------------------- ElevenLabs
@@ -96,8 +98,8 @@ def el_check():
     print("characters used:", s.get("character_count"), "/", s.get("character_limit"), "| tier:", s.get("tier"))
 
 
-def el_tts(text, speed, temperature):
-    model = CFG.get("model") or "eleven_v3"
+def el_tts(text, speed, temperature, model=None):
+    model = model or CFG.get("model") or "eleven_v3"
     if not model.startswith("eleven_v3"):
         text = re.sub(r"\[[^\]]*\]\s*", "", text)
     text = text.replace("[emphasis] ", "")  # emphasis comes from punctuation/caps on ElevenLabs
@@ -112,6 +114,7 @@ def generate(script_path, out_dir, only=None):
     segs = s.get("segments") or s.get("trechos")
     speed0 = s.get("speed", s.get("velocidade", CFG.get("speed", 1.0)))
     temp0 = s.get("temperature", s.get("temperatura", CFG.get("temperature", 0.8)))
+    model = s.get("model")  # per-script override, e.g. "drama-3" (Fish) or "eleven_v3"
     os.makedirs(out_dir, exist_ok=True)
     fn = {"fish": fish_tts, "elevenlabs": el_tts}[PROVIDER]
     sent = 0
@@ -120,7 +123,7 @@ def generate(script_path, out_dir, only=None):
         text = seg.get("text") or seg.get("texto")
         if only and not name.startswith(only):
             continue
-        audio, ctype = fn(text, seg.get("speed", seg.get("velocidade", speed0)), seg.get("temperature", seg.get("temperatura", temp0)))
+        audio, ctype = fn(text, seg.get("speed", seg.get("velocidade", speed0)), seg.get("temperature", seg.get("temperatura", temp0)), model)
         if "json" in ctype or len(audio) < 2000:
             raise SystemExit("ERROR unexpected response for %s: %s" % (name, audio[:300]))
         dest = os.path.join(out_dir, name + ".mp3")

@@ -99,6 +99,7 @@ Tones by brief `narrationTone`:
 | hype | `very excited, high energy, fast` |
 
 **Providers:**
+- **Fish Audio drama-3 (recommended for expressive narration):** set `"model": "drama-3"` in the voice script. Free-text directions in [brackets] written like a brief to an actor (`[playful, leaning in like sharing a secret]`, `[small laugh]`, `[pause]`) plus scoped tags `<emphasis>`, `<stress>`, `<slow>`, `<fast>`, `<soft>`, `<whisper>`, `<forceful>` around single words. Generate the whole narration as **one take** for natural flow. It runs slow: use `speed` ~1.25 and few `[pause]`s. A misspelled model silently falls back to s2.1-pro.
 - **Fish Audio (s2.1-pro):** free-form tags in [brackets].
 - **ElevenLabs:** `eleven_v3` understands [audio tags]. With other models, `tts.py` strips the tags; use punctuation for emotion instead.
 

@@ -34,6 +34,7 @@ DEFAULTS = {
     "paths": {"projects": os.path.join(os.path.expanduser("~"), "Reels")},
     "defaults": {
         "source": "ask",                 # talking-head | voiceover | topic | hybrid | ask
+        "editStyle": "auto",             # auto | classic | editorial-canvas | product-kinetic | terminal-neon | cinematic-3d
         "theme": "bold-dark",            # bold-dark | clean-light | neon-retro | brand
         "palette": {},                   # overrides for the theme (accent, alert, ink, ground...)
         "captions": {"mode": "word", "style": "outline", "position": "low", "uppercase": True},
@@ -66,6 +67,18 @@ DEFAULTS = {
         "model": "",                     # fish: s2.1-pro | elevenlabs: eleven_v3 (empty = provider default)
         "speed": 1.08,
         "temperature": 0.85,
+    },
+    "gemini": {                          # Google Gemini API (secret: gemini_api_key)
+        "videoModel": "gemini-omni-1.2-flash",   # AI video (Veo 3.1 API was shut down on 2026-10-22)
+        "imageModel": "gemini-nano-banana-2.1",  # b-roll images
+        "thumbModel": "gemini-3-pro-image",      # covers/thumbnails (best text rendering)
+        "resolution": "1080p",
+    },
+    "avatar": {                          # the creator's AI avatar for generated talking-head shots
+        "name": "",                      # label only (e.g. the avatar's name in the Gemini app); the API cannot load it by name
+        "refsDir": os.path.join(HOME, "avatar"),  # 1-3 reference images of the avatar (face, framing, outfit)
+        "description": "",               # one line: look, clothes, setting it usually appears in
+        "voice": "fish",                 # fish = narrate with the cloned voice | model = let the video model speak
     },
     "publish": {
         "provider": "manual",            # manual | ghl

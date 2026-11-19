@@ -11,7 +11,7 @@ Lookup order when reading:
   1. environment variable TRAVUS_<NAME> (e.g. TRAVUS_FISH_API_KEY) - handy for CI
   2. OS keychain through the `keyring` package (macOS Keychain, Windows Credential Manager, Secret Service)
   3. Windows only, when `keyring` is missing: DPAPI-encrypted file in %APPDATA%\\travus-reels\\secrets\\<name>.dpapi
-Secrets are never written in plain text. Known names: fish_api_key, elevenlabs_api_key, ghl_token.
+Secrets are never written in plain text. Known names: fish_api_key, elevenlabs_api_key, ghl_token, gemini_api_key.
 """
 import os
 import sys
@@ -121,7 +121,11 @@ if __name__ == "__main__":
     elif len(sys.argv) == 3 and sys.argv[1] in ("set", "check", "delete"):
         cmd, name = sys.argv[1], sys.argv[2]
         if cmd == "set":
-            value = sys.stdin.readline().strip()
+            if sys.stdin.isatty():  # typed or pasted in a terminal: hidden input
+                import getpass
+                value = getpass.getpass("paste the value for %s (hidden) and press Enter: " % name).strip()
+            else:
+                value = sys.stdin.readline().strip()
             if not value:
                 raise SystemExit("nothing received on stdin")
             where = write(name, value)

@@ -119,6 +119,7 @@ references/
   audio.md                   voice normalization, music selection, ducking, SFX
   scriptwriting.md           research, proven hooks, voice-script tags
   publishing.md              post caption, AI/#ad disclosure, GHL scheduling
+  creator.example.md         template for your private ~/.travus-reels/creator.md (personal rules)
   lessons-learned.md         pitfalls already solved (render, layout, whisper, GHL)
   examples/                  real scene scripts and index files (talking head, voiceover, light sponsored)
 scripts/

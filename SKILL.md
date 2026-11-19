@@ -27,6 +27,8 @@ Run `python <skill>/scripts/config.py status`.
 - `not-configured`: run the setup in **`references/setup.md`**. That is two rounds of multiple-choice questions plus one short free-text message. Store the answers with `config.py set`, have the user store the API keys with `secrets_store.py`, then run `python <skill>/scripts/doctor.py` and fix what is missing.
 - `configured`: read `python <skill>/scripts/config.py show` and go on.
 
+**Personal rules.** If `~/.travus-reels/creator.md` exists (or `$TRAVUS_REELS_HOME/creator.md`), read it before every reel and follow it. It holds the creator's own preferences and extra steps (e.g. logging each post in their content history). When it conflicts with this file, it wins, except for the safety rules in §9. The setup can create it from `references/creator.example.md`. Never copy it into a public repo.
+
 If the user says "setup", "reconfigure" or "change my defaults", run the setup again with the current values as the recommended options.
 
 ## 2. Each video: the brief

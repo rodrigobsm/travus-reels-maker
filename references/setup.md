@@ -117,4 +117,5 @@ Then confirm the voice: run `python <skill>/scripts/tts.py check`. With Fish Aud
 1. Save every answer with `python <skill>/scripts/config.py set <key> <value>`; values are parsed as JSON (`true`, `0.2`, `["So","Guys"]`).
 2. Run `python <skill>/scripts/config.py set setupDone true`.
 3. Run `python <skill>/scripts/doctor.py` and help the user install whatever is `MISSING`: Node 18+, FFmpeg, `pip install fonttools brotli keyring tzdata`.
-4. Show a short summary of the saved profile, and tell the user they can change it any time by saying "reconfigure".
+4. Offer to create `~/.travus-reels/creator.md` from `references/creator.example.md`. It holds personal habits and extra workflow steps that the config can't express. Fill it with anything the user told you during the setup.
+5. Show a short summary of the saved profile, and tell the user they can change it any time by saying "reconfigure".

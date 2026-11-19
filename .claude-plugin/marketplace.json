@@ -7,7 +7,7 @@
       "name": "travus-reels-maker",
       "source": "./",
       "description": "Creates and edits professional vertical reels end to end with HyperFrames.",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "productivity",
       "tags": ["video", "reels", "social-media"]
     }

@@ -34,6 +34,7 @@ Add a row whenever you solve a new one.
 | ffmpeg inside `while read` eats the rest of the list (file names cut: `ople.mp4`) | ffmpeg reads stdin | `ffmpeg -nostdin ...` |
 | Concat with `afade` fails on the last segment | a trailing-silence segment came out negative or too short | clamp segment ends to the duration and drop segments < 0.1 s |
 | File doesn't reach the phone | 30 MB limit on remote transfer | HEVC phone copy (command in SKILL.md §3.11) |
+| Screenshot of a source page comes out as "403 Forbidden" or a Cloudflare check | headless Chrome sends a `HeadlessChrome` user agent; some publishers (e.g. cell.com) always challenge bots | pass a normal desktop `--user-agent`, `--force-device-scale-factor=2`, `--virtual-time-budget=12000`; for papers, PubMed Central (pmc.ncbi.nlm.nih.gov) works and shows the journal citation + NIH/PMC logos |
 
 ## Editing decisions
 

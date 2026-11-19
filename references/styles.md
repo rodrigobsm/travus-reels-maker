@@ -40,7 +40,7 @@ In scene CSS, use `C["ink"]`, `C["accent"]`… from `reel_scenes` (Python), or `
 | style | Look |
 | --- | --- |
 | `outline` | white Montserrat 900, dark outline 0.125 em, shadow; the keyword in the accent |
-| `pill` | text on a rounded `card` pill; the keyword on an accent pill (word mode: the whole pill turns accent) |
+| `pill` | text on a rounded `card` pill; the keyword only changes to the accent color, with no inner bubble (word mode: the whole pill turns accent) |
 
 - Position: `low` (y 1436, default), `middle` (y 1060), `top` (y 560, only without a fixed title).
   - With `middle`, scenes must keep the y 960–1160 band free: move cards to y 430–900, or to the lower third (y 1200–1320).
@@ -71,6 +71,10 @@ The fonts are bundled in `assets/fonts` (SIL OFL) and declared with `@font-face`
 - A terminal typing a list; A vs B contrast in two colors; a checklist with animated checks.
 - Comparison in 3 cards with a price and the winner highlighted; a race with bars and logos.
 - A phone closing an app + a "WORKING…" panel; a grid of people lighting up.
+- **Source screenshot (credibility):** a real screenshot of the study or news page inside a white card with a fake browser bar showing the real URL.
+  - Keep the site's logo/header in the crop (e.g. NIH + PubMed Central) and stack it over the title/citation crop (`ffmpeg ... vstack`).
+  - Animate a highlighter (`scaleX` 0→1) over the title on the word that names the source.
+  - Capture with headless Chrome at 2× (see lessons-learned). Never edit the page text; screenshots must be real.
 - **Sponsored product hero:** cream/radial background, product cutout floating, benefit pills, brand logo, a discreet `#ad` pill for the whole product section.
 - **CTA:** question + speech bubble + FOLLOW → FOLLOWING button; or the keyword in quotes with an arrow to the comments.
 

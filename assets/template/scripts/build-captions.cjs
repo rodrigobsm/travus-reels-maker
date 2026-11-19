@@ -49,7 +49,7 @@ if (C.mode !== "none") {
     // Whisper (pt) glues a leading "E" ("and") to the next word: "Eisso" -> "E" + "isso".
     // If a real word starting with E gets split, add it to the exception list below.
     const m = LANG.startsWith("pt") ? /^E([a-zà-ú].*)$/.exec(t) : null;
-    if (m && !/^(Ela|Elas|Ele|Eles|Eu|Então|Encontrar|Empresa|Empresas|Empresário|Etapas|Existe|Esse|Essa|Esses|Essas|Este|Esta|Está|Estão|Estou|Entre|Enquanto|Em|Era|Exemplo|Exemplos|Exatamente|Entender|Entendeu|Enfim|Erro|Erros|Esperar|Espera|Escolher|Equipe|Energia|Economia|Email|Entrar|Enviar|Enviado|Evitar|Estratégia|Estudo|Efeito|Eficiente|Especial|Especialista|Essencial|Estrutura|Evento|Evolução|Experiência|Explicar|Extremamente|Engenharia|Engenheiro|Ensinar|Estados|Estoque|Emergência|Enrolação|Escola|Exigido|Esquece|Espalhou)$/i.test(t.replace(/[.,!?;:]/g, ""))) {
+    if (m && !/^(Ela|Elas|Ele|Eles|Eu|Então|Encontrar|Empresa|Empresas|Empresário|Etapas|Existe|Esse|Essa|Esses|Essas|Este|Esta|Está|Estão|Estou|Entre|Enquanto|Em|Era|Exemplo|Exemplos|Exatamente|Entender|Entendeu|Enfim|Erro|Erros|Esperar|Espera|Escolher|Equipe|Energia|Economia|Email|Entrar|Enviar|Enviado|Evitar|Estratégia|Estudo|Efeito|Eficiente|Especial|Especialista|Essencial|Essential|Essentia|Estrutura|Evento|Evolução|Experiência|Explicar|Extremamente|Engenharia|Engenheiro|Ensinar|Estados|Estoque|Emergência|Enrolação|Escola|Exigido|Esquece|Espalhou)$/i.test(t.replace(/[.,!?;:]/g, ""))) {
       const cut = Math.min(0.16, (w.end - w.start) * 0.35);
       words.push({ text: "E", start: w.start, end: w.start + cut });
       words.push({ text: m[1], start: w.start + cut, end: w.end });
@@ -109,7 +109,7 @@ const css = `
     .cap-w { display: inline-block; }
     ${pill
       ? `.cap-key .cap-in { background: ${P.accent}; color: ${accentInk}; }
-    .cap-in .cap-w.k { background: ${P.accent}; color: ${accentInk}; border-radius: 0.3em; padding: 0 0.18em; }`
+    .cap-in .cap-w.k { color: ${P.accent}; } /* phrase/karaoke: keyword is only recolored, no inner bubble */`
       : `.cap-w.k { color: ${P.accent}; }`}
 `;
 

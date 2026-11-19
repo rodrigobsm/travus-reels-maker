@@ -1,7 +1,7 @@
 {
   "name": "travus-reels-maker",
   "displayName": "Travus Reels Maker",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Creates and edits professional vertical reels (Instagram, TikTok, YouTube Shorts) end to end with HyperFrames: animated captions, b-roll, motion graphics, music, cloned-voice narration and optional scheduling.",
   "author": { "name": "rodrigobsm", "url": "https://github.com/rodrigobsm" },
   "homepage": "https://github.com/rodrigobsm/travus-reels-maker",
